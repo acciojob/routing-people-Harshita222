@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import UserList from './components/UserList';
-import UserDetail from './components/UserDetail';
+import UserList from './UserList';
+import UserDetail from './UserDetail';
 
 const App = () => {
   const users = [
