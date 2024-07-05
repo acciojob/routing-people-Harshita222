@@ -1,28 +1,29 @@
-// UserDetails.js
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import UserList from './components/UserList';
+import UserDetail from './components/UserDetail';
 
-const UserDetails = () => {
-  const { id } = useParams();
-
-  // Fetch user information based on the ID from API or any data source
-  // For simplicity, let's assume we have a hardcoded user object
-  const user = {
-    id,
-    name: `User ${id}`,
-    email: `user${id}@example.com`,
-    // Add more user details as needed
-  };
+const App = () => {
+  const users = [
+    { id: 1, name: 'Harshit Kumari', email: 'kumariharsita501@gmail.com', location: 'Siwan, Bihar' },
+    { id: 2, name: 'John Doe', email: 'john.doe@example.com', location: 'New York, USA' },
+    // Add more users as needed
+  ];
 
   return (
-    <div>
-      <h1>User Details</h1>
-      <p>ID: {user.id}</p>
-      <p>Name: {user.name}</p>
-      <p>Email: {user.email}</p>
-      {/* Render more user details as needed */}
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path="/" render={() => <UserList users={users} />} />
+          <Route path="/user/:id" render={(props) => {
+            const userId = parseInt(props.match.params.id, 10);
+            const user = users.find(user => user.id === userId);
+            return <UserDetail user={user} />;
+          }} />
+        </Switch>
+      </div>
+    </Router>
   );
 };
 
-export default UserDetails;
+export default App;
