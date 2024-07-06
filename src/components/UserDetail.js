@@ -1,17 +1,22 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
-const UserDetail = ({ user }) => {
+const UserDetails = ({ users }) => {
+  const { userId } = useParams();
+  const user = users.find(user => user.id === parseInt(userId));
+
   if (!user) {
-    return <div>User not found</div>;
+    return <h2>User not found</h2>;
   }
 
   return (
     <div>
-      <h1>{user.name}</h1>
-      <p>Email: {user.email}</p>
-      <p>Location: {user.location}</p>
+      <h1>User Details</h1>
+      <p><strong>First Name:</strong> {user.firstName}</p>
+      <p><strong>Last Name:</strong> {user.lastName}</p>
+      <p><strong>Email:</strong> {user.email}</p>
     </div>
   );
 };
 
-export default UserDetail;
+export default UserDetails;
